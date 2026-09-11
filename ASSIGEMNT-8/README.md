@@ -38,6 +38,7 @@ ASSIGNMENT-8/
 │
 ├── package.json
 └── package-lock.json
+```
 
 ## Screenshots
 
