@@ -4,31 +4,8 @@
 
 An Express.js and MongoDB REST API implementing **Update (PATCH)** and **Delete (DELETE)** operations using Mongoose, organized with a clean modular MVC-style architecture.
 
----
 
-## Objective
 
-The objective of this assignment is to:
-- Connect an Express.js backend application to MongoDB using **Mongoose**.
-- Display `"MongoDB connected successfully"` upon establishing a successful database connection.
-- Implement a **PATCH** route (`/api/users/:id`) to read the ID from `req.params`, read updated fields from `req.body`, and partially update user details using Mongoose.
-- Implement a **DELETE** route (`/api/users/:id`) to read the ID from `req.params` and remove the user document from MongoDB.
-- Separate code into modular directories: `schema/`, `model/`, and `router/`.
-- Handle potential errors including invalid ObjectIDs, non-existent records, empty update payloads, and database server failures.
-- Verify API endpoints using **Thunder Client** and inspect MongoDB collections via **MongoDB Compass**.
-
----
-
-## Technologies Used
-
-- **Runtime Environment:** Node.js
-- **Web Framework:** Express.js (`v5.2.1`)
-- **Database:** MongoDB (Local instance at `mongodb://127.0.0.1:27017/assignment8`)
-- **Object Data Modeling (ODM):** Mongoose (`v9.10.1`)
-- **API Testing:** Thunder Client (VS Code Extension)
-- **Database GUI:** MongoDB Compass
-
----
 
 ## Project Structure
 
@@ -54,54 +31,8 @@ ASSIGEMENT-9/
 
 ---
 
-## MongoDB Connection
 
-The database connection is configured in `server.js` using Mongoose:
 
-```javascript
-mongoose.connect("mongodb://127.0.0.1:27017/assignment8")
-    .then(() => {
-        console.log("MongoDB connected successfully");
-    })
-    .catch((error) => {
-        console.log("MongoDB connection error:", error);
-    });
-```
-
-When the application starts, it connects to the local MongoDB database and outputs:
-```text
-Server running on port 5000
-MongoDB connected successfully
-```
-
----
-
-## API Endpoints
-
-### 1. Update User (PATCH)
-- **URL:** `/api/users/:id`
-- **Method:** `PATCH`
-- **Description:** Updates specified fields (`name`, `email`, `age`, `course`) of an existing user.
-- **URL Parameters:**
-  - `id`: Valid 24-character hexadecimal MongoDB ObjectId.
-- **Request Headers:**
-  - `Content-Type: application/json`
-- **Query / Body Logic:**
-  - Validates MongoDB ObjectId using `mongoose.Types.ObjectId.isValid(id)`.
-  - Ensures the request body contains fields to update.
-  - Updates the document using `User.findByIdAndUpdate(id, req.body, { new: true, runValidators: true })`.
-
-### 2. Delete User (DELETE)
-- **URL:** `/api/users/:id`
-- **Method:** `DELETE`
-- **Description:** Permanently removes a user record from the database.
-- **URL Parameters:**
-  - `id`: Valid 24-character hexadecimal MongoDB ObjectId.
-- **Query / Body Logic:**
-  - Validates MongoDB ObjectId using `mongoose.Types.ObjectId.isValid(id)`.
-  - Deletes the record using `User.findByIdAndDelete(id)`.
-
----
 
 ## Request and Response Examples
 
@@ -148,46 +79,7 @@ MongoDB connected successfully
 }
 ```
 
----
 
-## Error Handling
-
-The application provides comprehensive error handling across all routes:
-
-| Scenario | HTTP Status | Response Payload |
-| :--- | :--- | :--- |
-| **Invalid MongoDB ID** | `400 Bad Request` | `{"message": "Invalid user ID"}` |
-| **Missing Update Data** | `400 Bad Request` | `{"message": "No update data provided"}` |
-| **User Not Found** | `404 Not Found` | `{"message": "User not found"}` |
-| **Database Server Error** | `500 Internal Server Error` | `{"message": "Database error", "error": "<error_message>"}` |
-
----
-
-## How to Run the Project
-
-1. **Navigate to the Project Directory:**
-   ```bash
-   cd ASSIGEMENT-9
-   ```
-
-2. **Install Dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Ensure MongoDB is Running:**
-   Make sure your local MongoDB daemon (`mongod`) is running on `mongodb://127.0.0.1:27017`.
-
-4. **Start the Server:**
-   ```bash
-   npm start
-   ```
-   *(or run directly with `node server.js`)*
-
-5. **Test the Endpoints:**
-   Send requests to `http://localhost:5000/api/users/:id` using Thunder Client or Postman.
-
----
 
 ## Screenshots
 
