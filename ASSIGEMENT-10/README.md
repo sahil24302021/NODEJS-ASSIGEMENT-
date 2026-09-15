@@ -16,30 +16,8 @@ The objective of this assignment is to:
 - Organize the project into dedicated modules: `config/`, `schema/`, and `router/`.
 - Test and verify the API using **Thunder Client** and inspect stored documents in the **Firebase Cloud Firestore Console**.
 
----
 
-## Features
 
-- **Express.js Server:** Modular routing and JSON body parsing.
-- **Firebase Firestore Integration:** Persistent cloud NoSQL document storage using the Firebase Admin SDK.
-- **Schema Validation with Joi:** Strict validation rules (`abortEarly: false`) returning comprehensive error feedback.
-- **Custom Error Messages:** Descriptive validation error messages for missing or malformed fields.
-- **Auto-generated Document IDs:** Firestore creates unique document IDs upon successful insertion.
-- **Robust Error Handling:** Distinguishes between client-side validation errors (`400`) and internal database errors (`500`).
-
----
-
-## Technologies Used
-
-- **Runtime Environment:** Node.js (`v26.x`)
-- **Web Framework:** Express.js (`v5.2.1`)
-- **Database:** Google Cloud Firestore (Firebase)
-- **SDK:** Firebase Admin SDK (`v14.4.0`)
-- **Validation Library:** Joi (`v18.2.9`)
-- **API Testing:** Thunder Client (VS Code Extension)
-- **Database Management:** Firebase Console
-
----
 
 ## Project Structure
 
@@ -64,60 +42,7 @@ ASSIGEMENT-10/
 └── README.md                  # Project documentation
 ```
 
----
 
-## User Validation Schema (Joi)
-
-The incoming request payload is validated using Joi with the following schema rules:
-
-| Field | Type | Validation Rules | Custom Error Message |
-| :--- | :--- | :--- | :--- |
-| **`name`** | `String` | Trimmed, Required | `"Name is required"` |
-| **`email`** | `String` | Valid Email format, Required | `"Please provide a valid email"`, `"Email is required"` |
-| **`age`** | `Number` | Integer, Min `18`, Max `100`, Required | `"Age must be a number"`, `"Age must be at least 18"`, `"Age must not exceed 100"` |
-| **`course`** | `String` | Trimmed, Required | `"Course is required"` |
-
-> [!NOTE]
-> The validation option `{ abortEarly: false }` is enabled so that all validation errors are collected and returned simultaneously, rather than halting at the first failure.
-
----
-
-## Firebase Setup and Connection
-
-1. A Firebase project was created on the **Firebase Console**.
-2. **Cloud Firestore** was provisioned in test/production mode.
-3. A service account private key was generated and downloaded from **Project Settings > Service Accounts**.
-4. In `config/firebase.js`, the Admin SDK is initialized using credentials:
-
-```javascript
-const { initializeApp, cert } = require("firebase-admin/app");
-const { getFirestore } = require("firebase-admin/firestore");
-
-const serviceAccount = require("../assignment10-35296-firebase-adminsdk-fbsvc-4d95382802.json");
-
-initializeApp({
-    credential: cert(serviceAccount)
-});
-
-const db = getFirestore();
-
-console.log("Firebase connected successfully");
-
-module.exports = db;
-```
-
----
-
-## API Endpoint Details
-
-### Create User (`POST /api/users`)
-
-- **URL:** `http://localhost:5000/api/users`
-- **Method:** `POST`
-- **Headers:** `Content-Type: application/json`
-- **Description:** Validates the user payload against the Joi schema and saves a new document to the Firestore `users` collection.
-
----
 
 ## Request & Response Examples
 
@@ -209,38 +134,7 @@ If Firestore is unreachable or an internal error occurs:
 
 ---
 
-## How to Run the Project
 
-1. **Navigate to the Project Directory:**
-   ```bash
-   cd ASSIGEMENT-10
-   ```
-
-2. **Install Dependencies:**
-   ```bash
-   npm install
-   ```
-   *(Required packages: `express`, `firebase-admin`, `joi`)*
-
-3. **Service Account Credentials:**
-   Ensure the Firebase Service Account JSON key is present in the project root and referenced in `config/firebase.js`. Keep this file in `.gitignore` to prevent credential exposure.
-
-4. **Start the Server:**
-   ```bash
-   npm start
-   ```
-   *(or run `node server.js`)*
-
-   Expected terminal output:
-   ```text
-   Firebase connected successfully
-   Server running on port 5000
-   ```
-
-5. **Test the API:**
-   Send a `POST` request to `http://localhost:5000/api/users` using Thunder Client or Postman.
-
----
 
 ## Screenshots
 
@@ -272,10 +166,3 @@ Thunder Client testing `POST /api/users` with invalid inputs, returning `400 Bad
 
 ---
 
-## Conclusion
-
-This assignment successfully demonstrates:
-1. Seamless integration of Node.js / Express.js with Google Cloud Firestore via the Firebase Admin SDK.
-2. Robust schema-based input validation with Joi prior to database persistence.
-3. Clean separation of concerns with a modular codebase architecture (`config`, `schema`, `router`).
-4. Comprehensive error handling with proper HTTP status codes (`201`, `400`, `500`).
