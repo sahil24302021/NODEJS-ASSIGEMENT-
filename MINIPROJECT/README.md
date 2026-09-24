@@ -20,18 +20,7 @@ The objective of this mini project is to:
 - Test and verify all endpoints using **Thunder Client / Postman**.
 - Inspect and verify database records and operations using **MongoDB Compass**.
 
----
 
-## Technologies Used
-
-- **Runtime Environment:** Node.js
-- **Web Framework:** Express.js (`v5.2.1`)
-- **Database:** MongoDB (Local instance: `mongodb://127.0.0.1:27017/shopDB`)
-- **Object Data Modeling (ODM):** Mongoose (`v9.10.2`)
-- **API Testing Tool:** Thunder Client / Postman
-- **Database GUI:** MongoDB Compass
-
----
 
 ## Database Configuration
 
@@ -231,55 +220,6 @@ If a product does not exist or has been deleted from the database, the API retur
 
 > **Verification Step:** This response was verified by deleting the "Laptop" document (`6ab56d1e669e05490c3d32d5`) from MongoDB Compass and re-sending the `GET /products/:id` request with the same ID.
 
----
-
-## How to Run the Project
-
-### 1. Install Dependencies
-
-Open a terminal inside the project directory and install the required npm packages:
-
-```bash
-npm install
-```
-
-### 2. Ensure MongoDB is Running
-
-Make sure the local MongoDB daemon is running on default port `27017`:
-
-```bash
-# Verify MongoDB service or open MongoDB Compass and connect to:
-mongodb://127.0.0.1:27017
-```
-
-### 3. Start the Express Server
-
-Run the application:
-
-```bash
-node index.js
-```
-
-**Expected Terminal Output:**
-
-```text
-MongoDB connected
-Server running on port 5000
-```
-
-### 4. Test the Endpoints
-
-Use **Thunder Client**, **Postman**, or `curl`:
-
-```bash
-# Get all products
-curl -X GET http://localhost:5000/products
-
-# Get product by ID
-curl -X GET http://localhost:5000/products/<PRODUCT_ID>
-```
-
----
 
 ## Screenshots & Verification
 
