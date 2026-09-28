@@ -7,10 +7,10 @@ const app = express();
 
 const PORT = 5000;
 
-// Middleware
+
 app.use(express.json());
 
-// MongoDB Connection
+
 mongoose
   .connect("mongodb://127.0.0.1:27017/shopDB")
   .then(() => {
@@ -47,8 +47,7 @@ app.get("/products", async (req, res) => {
 });
 
 
-// GET /products/:id
-// Fetch one product by ID
+
 app.get("/products/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
